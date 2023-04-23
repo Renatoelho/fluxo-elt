@@ -37,6 +37,14 @@ O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicat
 
 # Implementação
 
+```bash
+docker build -f dockerfile -t erp-app:0.0.1 .
+```
+
+```bash
+docker-compose -f docker-compose.yaml --compatibility up -d
+```
+
 Em Desenvolvimento...
 
 # Referências

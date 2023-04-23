@@ -1,0 +1,14 @@
+[Unit]
+Description=Simulador do ERP
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+WorkingDirectory=/home/erp/app/
+User=erp
+ExecStart=/bin/bash -c '/home/erp/.virtualenvs/bin/gunicorn app:app -b 0.0.0.0:8888 -k uvicorn.workers.UvicornWorker -w 4 --graceful-timeout 0 --access-logfile /home/erp/app/app.log 2>&1'
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,25 @@
+version: "3.3"
+
+services:
+  erp-app:
+    hostname: erp-app
+    image: erp-app:0.0.1
+    container_name: erp-app
+    ports:
+      - "8888:8888"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+    restart: always
+    healthcheck:
+      test: curl -f http://erp-app:8888/healthcheck
+      interval: 15s
+      timeout: 10s
+      retries: 5
+    networks:
+      - rede-fluxo-elt
+
+networks:
+  rede-fluxo-elt:
+    driver: bridge
