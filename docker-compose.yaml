@@ -28,6 +28,8 @@ services:
       MYSQL_DATABASE: db_erp
     image: mysql:5.7.40
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./erp-database:/var/lib/mysql:rw
     container_name: erp-database
     ports:
       - "3306:3306"
