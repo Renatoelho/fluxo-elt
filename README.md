@@ -37,9 +37,26 @@ O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicat
 
 # Implementação
 
+- Clone o repositório para iniciar a implementação
+
+```bash
+git clone https://github.com/Renatoelho/fluxo-elt.git "fluxo-elt"
+```
+
+```bash
+cd fluxo-elt
+```
+
+- Faça o build da imagem que simula o ERP
+```bash
+cd ERP
+```
+
 ```bash
 docker build -f dockerfile -t erp-app:0.0.1 .
 ```
+
+- Ativando todos os serviços do fluxo
 
 ```bash
 docker-compose -f docker-compose.yaml --compatibility up -d

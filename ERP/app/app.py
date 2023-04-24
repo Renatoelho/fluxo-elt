@@ -3,20 +3,17 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
-from gerador import clientes
-from gerador import vendas
+from gerador import registra_cliente_e_venda
 
 
 app = FastAPI()
 
 
 @app.get("/healthcheck")
-async def check() -> dict:
+def check() -> dict:
     try:
-        if not clientes():
+        if not registra_cliente_e_venda():
              raise ValueError("Erro")
-        if not vendas():
-            raise ValueError("Erro")
         return JSONResponse(status_code=200, content="Tudo Ok com o servidor.")
     except Exception as _:
         return JSONResponse(status_code=500, content="Ocorreu um erro interno no servidor.")

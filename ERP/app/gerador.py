@@ -1,20 +1,13 @@
 
-from pathlib import Path
-from datetime import datetime
+from gerador_dados import gerador_de_cliente_e_venda
+from banco_de_dados import executa_query
 
-def clientes() -> bool:
+def registra_cliente_e_venda() -> bool:
     try:
-        local = Path(__file__).parent
-        datahora = datetime.now().strftime("%Y%m%d%H%M%S")
-        with open(f"{local}/{datahora}.txt", "w+") as arquivo:
-            arquivo.write(datahora)
-        return True
-    except Exception as _:
-        return False
-
-def vendas() -> bool:
-    try:
-        print("Vendas...")
+        cliente_e_venda = gerador_de_cliente_e_venda()
+        cliente = cliente_e_venda[0]
+        venda = cliente_e_venda[1]
+        executa_query(cliente, venda)
         return True
     except Exception as _:
         return False

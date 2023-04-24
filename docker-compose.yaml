@@ -2,6 +2,8 @@ version: "3.3"
 
 services:
   erp-app:
+    depends_on:
+      - erp-database
     hostname: erp-app
     image: erp-app:0.0.1
     container_name: erp-app
@@ -17,6 +19,23 @@ services:
       interval: 15s
       timeout: 10s
       retries: 5
+    networks:
+      - rede-fluxo-elt
+  erp-database:
+    hostname: erp-database
+    environment:
+      MYSQL_ROOT_PASSWORD: d8Uwj1wos64h
+      MYSQL_DATABASE: db_erp
+    image: mysql:5.7.40
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    container_name: erp-database
+    ports:
+      - "3306:3306"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+    restart: always
     networks:
       - rede-fluxo-elt
 
