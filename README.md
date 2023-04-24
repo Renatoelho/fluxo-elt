@@ -13,21 +13,26 @@ Nesse exemplo específico, foram criados dois flows separados, um para capturar 
 
 Apache Nifi é uma plataforma open source que permite o gerenciamento e processamento de dados em tempo real de forma simples e escalável. Ele foi desenvolvido para lidar com fluxos de dados em ambientes distribuídos, oferecendo uma interface gráfica amigável para o desenvolvimento de pipelines de dados. O Apache Nifi suporta diversos tipos de fontes de dados, incluindo sistemas de arquivos, bancos de dados, serviços web, fluxos de dados, e muitos outros. Além disso, ele oferece integração com outras ferramentas de Big Data, como Apache Hadoop, Spark, e Hive.
 
+
 #### Apache Nifi Registry
 
 O Apache Nifi Registry é um subprojeto do Apache Nifi que fornece um repositório central para gerenciamento de versionamento, controle de acesso e colaboração para flows do Apache Nifi. Isso permite que as organizações gerenciem seus flows de forma mais eficiente e compartilhem seu trabalho com outras pessoas de maneira controlada e segura.
+
 
 #### Elasticsearch
 
 Elasticsearch é uma ferramenta de busca e análise de dados distribuída que é amplamente utilizada para buscar, analisar e visualizar grandes conjuntos de dados em tempo real. É um banco de dados NoSQL que é otimizado para armazenar, pesquisar e analisar grandes volumes de dados não estruturados. O Elasticsearch é escalável e flexível, permitindo que os usuários realizem pesquisas e análises avançadas em seus dados em tempo real.
 
+
 #### Kibana
 
 Kibana é uma ferramenta de visualização de dados que funciona em conjunto com o Elasticsearch, permitindo a criação de gráficos, dashboards e relatórios interativos para ajudar a entender e extrair insights a partir dos dados armazenados. Ele oferece uma interface amigável que permite a criação de painéis personalizados com diferentes tipos de visualizações, incluindo gráficos de barras, tabelas, mapas, e muitos outros. O Kibana é amplamente utilizado em ambientes de análise de dados e big data para monitoramento de sistemas, detecção de fraudes, análise de logs, e muitas outras aplicações.
 
+
 #### Docker
 
 Docker é uma plataforma de virtualização de aplicativos que permite que os aplicativos sejam executados em ambientes isolados e portáteis chamados contêineres. Cada contêiner inclui todos os componentes necessários para executar um aplicativo, como código, bibliotecas, dependências e configurações. Isso permite que os desenvolvedores criem, gerenciem e implantem aplicativos de forma mais rápida e consistente em diferentes ambientes.
+
 
 #### Docker Compose
 
@@ -35,19 +40,23 @@ O Docker Compose é uma ferramenta que permite que os usuários definam e execut
 
 O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicativos modernos, especialmente em ambientes de desenvolvimento e produção baseados em nuvem. Eles permitem que os desenvolvedores criem aplicativos de forma rápida e consistente, reduzindo a complexidade do gerenciamento de dependências e configurações em diferentes ambientes. Além disso, o uso de contêineres permite que os aplicativos sejam escalonados facilmente, garantindo que as alterações feitas em um contêiner não afetem outros contêineres em execução no mesmo host.
 
+
 # Implementação
 
-- Clone o repositório para iniciar a implementação
+
+#### Clonando o repositório para iniciar a implementação
 
 ```bash
 git clone https://github.com/Renatoelho/fluxo-elt.git "fluxo-elt"
 ```
 
 ```bash
-cd fluxo-elt
+cd fluxo-elt/
 ```
 
-- Faça o build da imagem que simula o ERP
+
+#### Fazendo o build da imagem que simula o ERP
+
 ```bash
 cd ERP
 ```
@@ -56,13 +65,83 @@ cd ERP
 docker build -f dockerfile -t erp-app:0.0.1 .
 ```
 
-- Ativando todos os serviços do fluxo
+
+#### Ativando todos os serviços do fluxo
+
+```bash
+cd ..
+```
 
 ```bash
 docker-compose -f docker-compose.yaml --compatibility up -d
 ```
 
+> ***IMPORTANTE:*** No primeiro start dos serviços, pode ocorrer um erro no serviço 'nifi-registry' se a permissão de acesso ao volume criado for negada. Nesse caso, desative os serviços e ***altere as permissões do volume***. Use o comando '***sudo chmod -R 777 nifi_registry/***' e, em seguida, suba novamente os serviços. Tudo deve funcionar corretamente.
+
+
+# Monitorando a saúde dos contêiners (healthcheck)
+
+O ***healthcheck*** é um recurso oferecido pelo Docker e implementado no Docker-compose que permite que você monitore o estado de um contêiner em tempo real e detecte se ele está ou não funcionando corretamente. 
+
+
+#### Existe um healthcheck para cada contêiner do fluxo
+
+- ***Contêiner Sistema ERP:*** test: curl -f http://erp-app:8888/healthcheck
+
+- ***Contêiner Database ERP:*** test: mysqladmin ping -h erp-database -u root -p<Senha root>
+
+- ***Contêiner Apache Nifi:*** test: wget -q --spider http://nifi-server:8443/nifi-api/system-diagnostics
+
+- ***Contêiner Apache Nifi Registry:*** test: wget -q --spider http://nifi-registry:18080/nifi-registry/
+
+- ***Contêiner Elasticsearch:*** <Definir...>
+
+- ***Contêiner Kibana:*** <Definir...>
+
+Para verificar a saúde dos contêiners execute o seguinte comando e verifique no atributo 'STATUS'.
+
+```bash
+docker ps
+```
+
+![healthcheck](ELT/Docs/healthcheck.png)
+
+
+#### Persistindo dados do Fluxo (Volumes)
+
+Os volumes no Docker são um recurso que permite compartilhar dados entre o host e os contêineres de uma forma flexível e independente do sistema de arquivos do host. Os volumes permitem que você armazene dados persistentes fora do contêiner e acesse esses dados de forma consistente em diferentes contêineres.
+
+Quase todos os contêineres existentes podem estar associados a um ou mais volumes, que podem ser definidos no contexto do Docker Compose ou diretamente no gerenciador de volumes do Docker. Para obter informações sobre os volumes utilizados no fluxo, consulte o arquivo [docker-compose.yaml](docker-compose.yaml) ou use os comandos de gerenciamento de volumes do Docker.
+
+```bash
+docker volume ls
+```
+
+
+#### Configurando o Versionamento dos Flows no Apache Nifi Registry
+
 Em Desenvolvimento...
+
+
+#### Configurando os Flows no Apache Nifi
+
+Em Desenvolvimento...
+
+
+#### Ativando os Flows no Apache Nifi
+
+Em Desenvolvimento...
+
+
+#### Visualizando o resultado no Elasticsearch e Kibana
+
+Em Desenvolvimento...
+
+
+#### Considerações Finais
+
+Em Desenvolvimento...
+
 
 # Referências
 
@@ -78,4 +157,9 @@ How to build a data lake from scratch - Part 1: The setup, ***Victor Seifert***.
 
 How to build a data lake from scratch — Part 2: Connecting the components, ***Victor Seifert***. Disponível em: <https://medium.com/towards-data-science/how-to-build-a-data-lake-from-scratch-part-2-connecting-the-components-1bc659cb3f4f>. acesso em: 23 abr. 2023.
 
-Texto, ***Origem***. Disponível em: <URL>. Acesso em: 23 abr. 2023.
+How to Successfully Implement A Healthcheck In Docker Compose, ***Linuxhint***. Disponível em: <https://linuxhint.com/how-to-successfully-implement-healthcheck-in-docker-compose/>. Acesso em: 24 abr. 2023.
+
+Volumes, ***Docker Docs***. Disponível em: <https://docs.docker.com/storage/volumes/>. Acesso em: 24 abr. 2023.
+
+Texto, ***Origem***. Disponível em: <URL>. Acesso em: XX abr. 2023.
+

@@ -38,6 +38,11 @@ services:
         limits:
           memory: 2G
     restart: always
+    healthcheck:
+      test: mysqladmin ping -h erp-database -u root -pd8Uwj1wos64h
+      interval: 30s
+      timeout: 20s
+      retries: 5
     networks:
       - rede-fluxo-elt
 
