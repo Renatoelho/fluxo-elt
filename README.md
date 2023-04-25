@@ -137,7 +137,7 @@ Em ***Bucket Name*** adicione: *bucket-flows-elt* e clique em ***CREATE***.
 
 ***Menu >> Controller Settings >> Registry Clients >> Add Registry Client***
 
-Adicione em *Name* o mesmo nome do bucket criado no Registry ***bucket-flows-elt***, já em *Type* escolha ***NifiRegistryFlowRegistryClient*** e clique em ***ADD***. Em seguida acesse novamente e clique em ***Edit*** e adicione na aba ***PROPERTIES*** a URL: http://nifi-registry:18080/ clique em: ***UPDATE*** e tudo pronto. Agora seus Flows no Apache Nifi já podem ser versionados.
+Adicione em ***Name*** o mesmo nome do bucket criado no Registry *bucket-flows-elt*, já em ***Type*** escolha *NifiRegistryFlowRegistryClient* e clique em ***ADD***. Em seguida acesse novamente e clique em ***Edit*** e adicione na aba *PROPERTIES* a URL: http://nifi-registry:18080/ clique em ***UPDATE*** e tudo pronto. Agora seus Flows no Apache Nifi já podem ser versionados.
 
 - Configurações:
 
