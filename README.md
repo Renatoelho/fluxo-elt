@@ -62,7 +62,7 @@ cd ERP
 ```
 
 ```bash
-docker build -f dockerfile -t erp-app:0.0.1 .
+docker build -f dockerfile -t erp-sistema:0.0.1 .
 ```
 
 
@@ -76,7 +76,7 @@ cd ..
 docker-compose -f docker-compose.yaml --compatibility up -d
 ```
 
-> ***IMPORTANTE:*** No primeiro start dos serviços, pode ocorrer um erro no serviço 'nifi-registry' se a permissão de acesso ao volume criado for negada. Nesse caso, desative os serviços e ***altere as permissões do volume***. Use o comando '***sudo chmod -R 777 nifi_registry/***' e, em seguida, suba novamente os serviços. Tudo deve funcionar corretamente.
+> ***IMPORTANTE:*** No primeiro start dos serviços, pode ocorrer um erro no serviço 'nifi-registry' se a permissão de acesso ao volume criado for negada. Nesse caso, desative os serviços e ***altere as permissões do volume***. Use o comando '***sudo chmod -R 777 volumes/nifi_registry/***' e, em seguida, suba novamente os serviços. Tudo deve funcionar corretamente.
 
 
 #### Monitorando a saúde dos contêiners (healthcheck)
@@ -119,8 +119,39 @@ docker volume ls
 
 #### Configurando o Versionamento dos Flows no Apache Nifi Registry
 
-Em Desenvolvimento...
+Para acessar o Nifi e Nifi Registry use as seguintes URLs:
 
+- https://localhost:8443/nifi/ (Usuário e senha no arquivo docker-compose.yaml)
+
+- http://localhost:18080/nifi-registry/
+
+***1º Passo:*** acesse o Registry e crie um *bucket* em:
+
+***Settings >> New bucket***
+
+Em ***Bucket Name*** adicione: *bucket-flows-elt* e clique em ***CREATE***.
+
+![Bucket Nifi Registry](ELT/Docs/bucket-nifi-registry.png)
+
+***2º Passo:*** Acesse o Apache Nifi (Usuário e senha no arquivo docker-compose.yaml) e execute em:
+
+***Menu >> Controller Settings >> Registry Clients >> Add Registry Client***
+
+Adicione em *Name* o mesmo nome do bucket criado no Registry ***bucket-flows-elt***, já em *Type* escolha ***NifiRegistryFlowRegistryClient*** e clique em ***ADD***. Em seguida acesse novamente e clique em ***Edit*** e adicione na aba ***PROPERTIES*** a URL: http://nifi-registry:18080/ clique em: ***UPDATE*** e tudo pronto. Agora seus Flows no Apache Nifi já podem ser versionados.
+
+- Configurações:
+
+![Configurações Apache Nifi Registry](ELT/Docs/config-apache-nifi-registry.png)
+
+- Versionamento:
+
+![Versionamento Apache Nifi Registry](ELT/Docs/version-apache-nifi-registry.png)
+
+![Versionamento Apache Nifi Registry OK](ELT/Docs/version-apache-nifi-registry-ok.png)
+
+#### Acessando o Database do Sistema ERP
+
+Em Desenvolvimento...
 
 #### Configurando os Flows no Apache Nifi
 
@@ -160,5 +191,10 @@ How to Successfully Implement A Healthcheck In Docker Compose, ***Linuxhint***. 
 
 Volumes, ***Docker Docs***. Disponível em: <https://docs.docker.com/storage/volumes/>. Acesso em: 24 abr. 2023.
 
-Texto, ***Origem***. Disponível em: <URL>. Acesso em: XX abr. 2023.
+Elasticsearch, ***Docker Hub***. Disponível em: <https://hub.docker.com/_/elasticsearch>. Acesso em: 25 abr. 2023.
 
+Kibana, ***Docker Hub***. Disponível em: <https://hub.docker.com/_/kibana>. Acesso em: 25 abr. 2023.
+
+
+
+Texto, ***Origem***. Disponível em: <URL>. Acesso em: XX abr. 2023.
