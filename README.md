@@ -151,11 +151,11 @@ Adicione em ***Name*** o mesmo nome do bucket criado no Registry '*bucket-flows-
 
 #### Acessando o Database do Sistema ERP
 
-Esta etapa não se destina apenas a visualizar os dados existentes no banco de dados do ERP, mas também a aproveitar as regras de negócio para desenvolver as consultas que serão usadas para extrair os dados do ERP. É possível utilizar qualquer gerenciador de banco de dados, ou o gerenciador exclusivo do banco em questão. Neste exemplo, utilizaremos o ![Dbeaver](https://dbeaver.io/download/), que é adequado para qualquer banco de dados relacional.
+Esta etapa não se destina apenas a visualizar os dados existentes no banco de dados do ERP, mas também a aproveitar as regras de negócio para desenvolver as consultas que serão usadas para extrair os dados do ERP. É possível utilizar qualquer gerenciador de banco de dados, ou o gerenciador exclusivo do banco em questão. Neste exemplo, utilizaremos o [Dbeaver](https://dbeaver.io/download/), que é adequado para qualquer banco de dados relacional.
 
 Temos as queries originais que refletem as regras de negócio, bem como as queries ajustadas que serão utilizadas no Apache NiFi. Estas últimas possuem algumas regras para que a query seja alternada entre a primeira execução, que faz uma carga completa, e em todas as demais execuções, apenas as incrementais são executadas. Abaixo estão os exemplos de queries originais e ajustadas para serem executadas no fluxo do Apache NiFi:
 
-> As credenciais de acesso ao banco de dados estão no arquivo ![docker-compose.yaml](docker-compose.yaml).
+> As credenciais de acesso ao banco de dados estão no arquivo [docker-compose.yaml](docker-compose.yaml).
 
 - Originais:
 
