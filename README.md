@@ -58,7 +58,7 @@ cd fluxo-elt/
 #### Fazendo o build da imagem que simula o ERP
 
 ```bash
-cd ERP
+cd ERP/
 ```
 
 ```bash
@@ -129,7 +129,7 @@ Para acessar o Nifi e Nifi Registry use as seguintes URLs:
 
 ***Settings >> New bucket***
 
-Em ***Bucket Name*** adicione: *bucket-flows-elt* e clique em ***CREATE***.
+Em ***Bucket Name*** adicione '*bucket-flows-elt*' e clique em ***CREATE***.
 
 ![Bucket Nifi Registry](ELT/Docs/bucket-nifi-registry.png)
 
@@ -151,7 +151,97 @@ Adicione em ***Name*** o mesmo nome do bucket criado no Registry '*bucket-flows-
 
 #### Acessando o Database do Sistema ERP
 
-Em Desenvolvimento...
+Esta etapa não se destina apenas a visualizar os dados existentes no banco de dados do ERP, mas também a aproveitar as regras de negócio para desenvolver as consultas que serão usadas para extrair os dados do ERP. É possível utilizar qualquer gerenciador de banco de dados, ou o gerenciador exclusivo do banco em questão. Neste exemplo, utilizaremos o ![Dbeaver](https://dbeaver.io/download/), que é adequado para qualquer banco de dados relacional.
+
+Temos as queries originais que refletem as regras de negócio, bem como as queries ajustadas que serão utilizadas no Apache NiFi. Estas últimas possuem algumas regras para que a query seja alternada entre a primeira execução, que faz uma carga completa, e em todas as demais execuções, apenas as incrementais são executadas. Abaixo estão os exemplos de queries originais e ajustadas para serem executadas no fluxo do Apache NiFi:
+
+> As credenciais de acesso ao banco de dados estão no arquivo ![docker-compose.yaml](docker-compose.yaml).
+
+- Originais:
+
+***Clientes***
+
+```SQL
+SELECT
+	id,
+	nome ,
+	sobrenome,
+	email,
+	telefone,
+	DATE_FORMAT(data_nascimento, '%Y-%m-%d') data_nascimento,
+	cidade,
+	estado,
+	pais,
+	codigo_pais,
+	DATE_FORMAT(datahora, '%Y-%m-%d %H:%i:%s') datahora
+FROM db_erp.clientes
+-- WHERE datahora >= NOW() - INTERVAL 1 MINUTE 
+-- WHERE id >= False
+ORDER BY id;
+```
+
+***Vendas***
+
+```SQL
+SELECT
+	id,
+	produto,
+	DATE_FORMAT(data_compra, '%Y-%m-%d') data_compra,
+	tipo_cartao,
+	numero_cartao,
+	quantidade,
+	valor,
+	DATE_FORMAT(datahora, '%Y-%m-%d %H:%i:%s') datahora
+FROM db_erp.vendas
+-- WHERE datahora >= NOW() - INTERVAL 1 MINUTE 
+-- WHERE id >= False
+ORDER BY id;
+```
+
+Ajustadas para o Apache Nifi:
+
+***Clientes***
+
+```SQL
+SELECT
+	id,
+	nome ,
+	sobrenome,
+	email,
+	telefone,
+	DATE_FORMAT(data_nascimento, '%Y-%m-%d') data_nascimento,
+	cidade,
+	estado,
+	pais,
+	codigo_pais,
+	DATE_FORMAT(datahora, '%Y-%m-%d %H:%i:%s') datahora
+FROM db_erp.clientes
+${clausula_where_flow}
+ORDER BY id;
+```
+
+***Vendas***
+
+```SQL
+SELECT
+	id,
+	produto,
+	DATE_FORMAT(data_compra, '%Y-%m-%d') data_compra,
+	tipo_cartao,
+	numero_cartao,
+	quantidade,
+	valor,
+	DATE_FORMAT(datahora, '%Y-%m-%d %H:%i:%s') datahora
+FROM db_erp.vendas
+${clausula_where_flow}
+ORDER BY id;
+```
+
+As variáveis 'clausula_where_flow' e 'numero_execucao_flow' no Apache Nifi são responsáveis por definir se será uma carga inicial completa ou cargas incrementais, isso para os Flows de Clientes e Vendas, que neste caso serão feitas a cada 5 minutos. Para mais detalhes sobre essa regra, consulte o fluxo.
+
+Exemplo da lógica para execução das cargas:
+
+![Exemplo da lógica para execução das cargas](ELT/Docs/exemplo-logica-carga.png)
 
 #### Configurando os Flows no Apache Nifi
 
@@ -195,6 +285,7 @@ Elasticsearch, ***Docker Hub***. Disponível em: <https://hub.docker.com/_/elast
 
 Kibana, ***Docker Hub***. Disponível em: <https://hub.docker.com/_/kibana>. Acesso em: 25 abr. 2023.
 
+Expression Language Guide, ***Apache NiFi Expression Language Guide***. Disponível em: <https://nifi.apache.org/docs/nifi-docs/>. Acesso em: 26 abr. 2023.
 
 
 Texto, ***Origem***. Disponível em: <URL>. Acesso em: XX abr. 2023.
