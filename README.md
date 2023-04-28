@@ -255,7 +255,7 @@ Um dos primeiros passos no desenvolvimento de Flows no Apache NiFi é verificar 
 
 ***Configuration (Engrenagem) >> Controller Services >> Create a new controller service***
 
-epois disso, é necessário escolher e configurar um 'DBCPConnectionPool 1.19.0' e um 'JsonRecordSetWriter 1.19.0' para o MySQL, além de um 'ElasticSearchClientServiceImpl 1.19.0' para o Elasticsearch. No caso do MySQL, é uma configuração JDBC comum, e é necessário um controller service para converter o resultado da query em um arquivo JSON. Já no caso do Elasticsearch, é necessário informar a URL HTTP://..., o nome de usuário e a senha do servidor Elastic
+Depois disso, é necessário escolher e configurar um 'DBCPConnectionPool 1.19.0' e um 'JsonRecordSetWriter 1.19.0' para o MySQL, além de um 'ElasticSearchClientServiceImpl 1.19.0' para o Elasticsearch. No caso do MySQL, é uma configuração JDBC comum, e é necessário um controller service para converter o resultado da query em um arquivo JSON. Já no caso do Elasticsearch, é necessário informar a URL HTTP://..., o nome de usuário e a senha do servidor Elastic
 
 
 - ***Controller Services***
