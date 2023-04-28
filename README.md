@@ -87,7 +87,7 @@ Existe um healthcheck para cada contêiner do fluxo:
 
 - ***Contêiner Sistema ERP:*** test: curl -f http://erp-app:8888/healthcheck
 
-- ***Contêiner Database ERP:*** test: mysqladmin ping -h erp-database -u root -p<Senha root>
+- ***Contêiner Database ERP:*** test: mysqladmin ping -h erp-database -u root -pd8Uwj1wos64h
 
 - ***Contêiner Apache Nifi:*** test: wget -q --spider http://nifi-server:8443/nifi-api/system-diagnostics
 
