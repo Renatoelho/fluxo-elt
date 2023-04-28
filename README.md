@@ -149,6 +149,7 @@ Adicione em ***Name*** o mesmo nome do bucket criado no Registry '*bucket-flows-
 
 ![Versionamento Apache Nifi Registry OK](ELT/Docs/version-apache-nifi-registry-ok.png)
 
+
 #### Acessando o Database do Sistema ERP
 
 Esta etapa não se destina apenas a visualizar os dados existentes no banco de dados do ERP, mas também a aproveitar as regras de negócio para desenvolver as consultas que serão usadas para extrair os dados do ERP. É possível utilizar qualquer gerenciador de banco de dados, ou o gerenciador exclusivo do banco em questão. Neste exemplo, utilizaremos o [Dbeaver](https://dbeaver.io/download/), que é adequado para qualquer banco de dados relacional.
@@ -245,6 +246,7 @@ Exemplo da lógica para execução das cargas
 
 > ***IMPORTANTE:*** Essa regra de captura dos registros inseridos nos últimos 5 minutos é apenas uma abordagem conceitual, podendo ocorrer falhas na recuperação dos dados do banco. Para uma execução com grande grau de precisão, a inclusão de algumas variáveis de controle é necessária, mas não é o escopo do nosso contexto aqui.
 
+
 #### Configurando os Flows no Apache Nifi
 
 Um dos primeiros passos no desenvolvimento de Flows no Apache NiFi é verificar se as conexões aos bancos de dados estão criadas e funcionando. Para isso, os 'controller services' são utilizados. No nosso exemplo, teremos um controller service para o MySQL via JDBC e outro para Elasticsearch.
@@ -300,9 +302,16 @@ epois disso, é necessário escolher e configurar um 'DBCPConnectionPool 1.19.0'
 
 > ***Obs.:*** Todo esse detalhamento do fluxo é para a extração de clientes. Para as vendas, há um fluxo com a mesma estrutura lógica, mas com uma query de início do MySQL e uma índice de destino no Elasticsearch diferentes.
 
+
 #### Ativando os Flows no Apache Nifi
 
-Em Desenvolvimento...
+***IMPORTANTE:*** O processor '***EXECUTOR DO FLOW (EXECUTA UM VEZ)***' deve ser executado uma única vez e em seguida desabilitado, pois ele é responsável por gerar a variável '***numero_execucao_flow***', que será utilizada para definir se a execução da query do MySQL será completa ou incremental (ou seja, apenas os registros dos *últimos 5 minutos*), pelo processor '***REEXECUTOR DO FLOW***'.
+
+Ative o Flow depois de executar o procedimento do processor '***EXECUTOR DO FLOW (EXECUTA UM VEZ)***'.
+
+Clique com botão diretito do mouse na parte em branco do Flow e em seguida em "Start".
+
+![Ativando o Flow](ELT/Docs/ativando-flow.png)
 
 
 #### Visualizando o resultado no Elasticsearch e Kibana
