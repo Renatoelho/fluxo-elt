@@ -239,7 +239,7 @@ ORDER BY id;
 
 As variáveis '***clausula_where_flow***' e '***numero_execucao_flow***' no Apache Nifi são responsáveis por definir se será uma carga inicial completa ou cargas incrementais, isso para os Flows de Clientes e Vendas, que neste caso serão feitas a cada 5 minutos. Para mais detalhes sobre essa regra, consulte o fluxo.
 
-Exemplo da lógica para execução das cargas:
+Exemplo da lógica para execução das cargas
 
 ![Exemplo da lógica para execução das cargas](ELT/Docs/exemplo-logica-carga.png)
 
@@ -249,52 +249,52 @@ Exemplo da lógica para execução das cargas:
 
 Um dos primeiros passos no desenvolvimento de Flows no Apache NiFi é verificar se as conexões aos bancos de dados estão criadas e funcionando. Para isso, os 'controller services' são utilizados. No nosso exemplo, teremos um controller service para o MySQL via JDBC e outro para Elasticsearch.
 
-Para criar um controller service, é necessário acessar:
+- ***Para criar um controller service, é necessário acessar:***
 
 ***Configuration (Engrenagem) >> Controller Services >> Create a new controller service***
 
 epois disso, é necessário escolher e configurar um 'DBCPConnectionPool 1.19.0' e um 'JsonRecordSetWriter 1.19.0' para o MySQL, além de um 'ElasticSearchClientServiceImpl 1.19.0' para o Elasticsearch. No caso do MySQL, é uma configuração JDBC comum, e é necessário um controller service para converter o resultado da query em um arquivo JSON. Já no caso do Elasticsearch, é necessário informar a URL HTTP://..., o nome de usuário e a senha do servidor Elastic
 
 
-***Controller Services***
+- ***Controller Services***
 
 ![Controller Services](ELT/Docs/exemplo-controller-services.png)
 
 
-***Conexão com MySQL***
+- ***Conexão com MySQL***
 
 ![Processor Apache Nifi](ELT/Docs/exemplo-processor-mysql.png)
 
 ![Propriedades Processor](ELT/Docs/exemplo-propriedades-processor-mysql.png)
 
 
-***Conexão com Elasticsearch***
+- ***Conexão com Elasticsearch***
 
 ![Processor Apache Nifi](ELT/Docs/exemplo-processor-elastic.png)
 
 ![Propriedades Processor](ELT/Docs/exemplo-propriedades-processor-elastic.png)
 
 
-***Lógica para extração contínua a cada 5 Minutos***
+- ***Lógica para extração contínua a cada 5 Minutos***
 
 ![Lógica de extração contínua](ELT/Docs/exemplo-logica-extracao-continua.png)
 
 
-***Separa o resultado da Query SQL em um arquivo Json para cada linha***
+- ***Separa o resultado da Query SQL em um arquivo Json para cada linha***
 
 ![Separa resultado query em arquivos Jsons](ELT/Docs/exemplo-separa-resultado-query.png)
 
 ![Separa resultado query em arquivos Jsons - Propriedades](ELT/Docs/exemplo-separa-resultado-query-propriedades.png)
 
 
-***Grava no Elasticsearch em formato Json***
+- ***Grava no Elasticsearch em formato Json***
 
 ![Grava no Elasticsearch](ELT/Docs/exemplo-grava-elasticsearch.png)
 
 ![Modelo arquivo para gravação](ELT/Docs/exemplo-arquivo-json.png)
 
 
-***Flow Completo - Clientes***
+- ***Flow Completo - Clientes***
 
 ![Flow Completo - Clientes](ELT/Docs/exemplo-flow-clientes.png)
 
