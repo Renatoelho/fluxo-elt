@@ -79,9 +79,9 @@ docker-compose -f docker-compose.yaml --compatibility up -d
 > ***IMPORTANTE:*** No primeiro start dos serviços, pode ocorrer um erro no serviço '***nifi-registry***' se a permissão de acesso ao volume criado for negada. Nesse caso, desative os serviços (***docker-compose -f docker-compose.yaml --compatibility down***) e ***altere as permissões do volume***. Use o comando '***sudo chmod -R 777 volumes/nifi_registry/***' e, em seguida, suba novamente os serviços. Tudo deve funcionar corretamente.
 
 
-### Monitorando a saúde dos contêiners (healthcheck)
+### Monitorando a saúde dos contêiners e aplicações (healthcheck)
 
-O ***healthcheck*** ferece o recurso de monitoramento de estado de contêiner e saúde da aplicação em tempo real, permitindo detectar se tudo está funcionando corretamente. 
+O ***healthcheck*** é um recurso de monitoramento de estado de contêiner e saúde da aplicação em tempo real, permitindo detectar se tudo está funcionando corretamente. 
 
 Existe um healthcheck para cada contêiner do fluxo:
 
@@ -116,7 +116,7 @@ Quase todos os contêineres existentes podem estar associados a um ou mais volum
 docker volume ls
 ```
 
-![healthcheck](ELT/Docs/exemplo-volumes-docker.png)
+![Volumes Docker](ELT/Docs/exemplo-volumes-docker.png)
 
 
 ### Configurando o Versionamento dos Flows no Apache Nifi Registry
@@ -313,7 +313,7 @@ Depois disso, é necessário escolher e configurar um '***DBCPConnectionPool 1.1
 
 Ative o Flow depois de executar o procedimento do processor '***EXECUTOR DO FLOW (EXECUTA UM VEZ)***'.
 
-Clique com botão diretito do mouse na parte em branco do Flow e em seguida em '***Start***'.
+Clique com botão diretito do mouse na parte em branco do Flow e em seguida em ***Start***.
 
 ![Ativando o Flow](ELT/Docs/exemplo-ativando-flow.png)
 
