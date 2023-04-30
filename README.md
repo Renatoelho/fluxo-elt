@@ -100,10 +100,10 @@ Existe um healthcheck para cada contêiner do fluxo:
 Para verificar a saúde dos contêiners execute o seguinte comando e verifique no atributo 'STATUS'.
 
 ```bash
-docker ps
+docker ps --format "{{.ID}}\t{{.Names}}\t{{.Status}}"
 ```
 
-![healthcheck](ELT/Docs/healthcheck.png)
+![healthcheck](ELT/Docs/exemplo-healthcheck.png)
 
 
 ### Persistindo dados do Fluxo (Volumes)
@@ -115,6 +115,8 @@ Quase todos os contêineres existentes podem estar associados a um ou mais volum
 ```bash
 docker volume ls
 ```
+
+![healthcheck](ELT/Docs/exemplo-volumes-docker.png)
 
 
 ### Configurando o Versionamento dos Flows no Apache Nifi Registry
@@ -249,7 +251,7 @@ Exemplo da lógica para execução das cargas
 
 ### Configurando o Flow no Apache Nifi
 
-Um dos primeiros passos no desenvolvimento de Flows no Apache NiFi é verificar se as conexões aos bancos de dados estão criadas e funcionando. Para isso, os 'controller services' são utilizados. No nosso exemplo, teremos um controller service para o MySQL via JDBC e outro para Elasticsearch.
+Um dos primeiros passos no desenvolvimento de Flows no Apache NiFi é verificar se as conexões aos bancos de dados estão criadas e funcionando. Para isso, os '***controller services***' são utilizados. No nosso exemplo, teremos um controller service para o MySQL via JDBC e outro para Elasticsearch.
 
 - ***Para criar um controller service, é necessário acessar:***
 
@@ -303,7 +305,7 @@ Depois disso, é necessário escolher e configurar um '***DBCPConnectionPool 1.1
 
 Ative o Flow depois de executar o procedimento do processor '***EXECUTOR DO FLOW (EXECUTA UM VEZ)***'.
 
-Clique com botão diretito do mouse na parte em branco do Flow e em seguida em "Start".
+Clique com botão diretito do mouse na parte em branco do Flow e em seguida em '***Start***'.
 
 ![Ativando o Flow](ELT/Docs/exemplo-ativando-flow.png)
 
