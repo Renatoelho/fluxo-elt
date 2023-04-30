@@ -81,7 +81,7 @@ docker-compose -f docker-compose.yaml --compatibility up -d
 
 ### Monitorando a saúde dos contêiners e aplicações (healthcheck)
 
-O ***healthcheck*** é um recurso de monitoramento de estado de contêiner e saúde da aplicação em tempo real, permitindo detectar se tudo está funcionando corretamente. 
+O ***healthcheck*** é um recurso de monitoramento de estado do contêiner e saúde da aplicação em tempo real, permitindo detectar se tudo está funcionando corretamente. 
 
 Existe um healthcheck para cada contêiner do fluxo:
 
@@ -178,8 +178,8 @@ SELECT
 	codigo_pais,
 	DATE_FORMAT(datahora, '%Y-%m-%d %H:%i:%s') datahora
 FROM db_erp.clientes
--- WHERE datahora >= NOW() - INTERVAL 1 MINUTE 
--- WHERE id >= False
+-- WHERE datahora >= NOW() - INTERVAL 1 MINUTE # Carga Incremental 
+-- WHERE id >= False # Carga Completa 
 ORDER BY id;
 ```
 
@@ -196,8 +196,8 @@ SELECT
 	valor,
 	DATE_FORMAT(datahora, '%Y-%m-%d %H:%i:%s') datahora
 FROM db_erp.vendas
--- WHERE datahora >= NOW() - INTERVAL 1 MINUTE 
--- WHERE id >= False
+-- WHERE datahora >= NOW() - INTERVAL 1 MINUTE # Carga Incremental 
+-- WHERE id >= False # Carga Completa
 ORDER BY id;
 ```
 
