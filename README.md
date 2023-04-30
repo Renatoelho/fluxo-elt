@@ -44,7 +44,7 @@ O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicat
 # Implementação
 
 
-#### Clonando o repositório para iniciar a implementação
+### Clonando o repositório para iniciar a implementação
 
 ```bash
 git clone https://github.com/Renatoelho/fluxo-elt.git "fluxo-elt"
@@ -55,7 +55,7 @@ cd fluxo-elt/
 ```
 
 
-#### Fazendo o build da imagem que simula o ERP
+### Fazendo o build da imagem que simula o ERP
 
 ```bash
 cd ERP/
@@ -66,7 +66,7 @@ docker build -f dockerfile -t erp-sistema:0.0.1 .
 ```
 
 
-#### Ativando todos os serviços do fluxo
+### Ativando todos os serviços do fluxo
 
 ```bash
 cd ..
@@ -79,7 +79,7 @@ docker-compose -f docker-compose.yaml --compatibility up -d
 > ***IMPORTANTE:*** No primeiro start dos serviços, pode ocorrer um erro no serviço 'nifi-registry' se a permissão de acesso ao volume criado for negada. Nesse caso, desative os serviços e ***altere as permissões do volume***. Use o comando '***sudo chmod -R 777 volumes/nifi_registry/***' e, em seguida, suba novamente os serviços. Tudo deve funcionar corretamente.
 
 
-#### Monitorando a saúde dos contêiners (healthcheck)
+### Monitorando a saúde dos contêiners (healthcheck)
 
 O ***healthcheck*** é um recurso oferecido pelo Docker e implementado no Docker-compose que permite que você monitore o estado de um contêiner em tempo real e detecte se ele está ou não funcionando corretamente. 
 
@@ -106,7 +106,7 @@ docker ps
 ![healthcheck](ELT/Docs/healthcheck.png)
 
 
-#### Persistindo dados do Fluxo (Volumes)
+### Persistindo dados do Fluxo (Volumes)
 
 Os volumes no Docker são um recurso que permite compartilhar dados entre o host e os contêineres de uma forma flexível e independente do sistema de arquivos do host. Os volumes permitem que você armazene dados persistentes fora do contêiner e acesse esses dados de forma consistente em diferentes contêineres.
 
@@ -117,7 +117,7 @@ docker volume ls
 ```
 
 
-#### Configurando o Versionamento dos Flows no Apache Nifi Registry
+### Configurando o Versionamento dos Flows no Apache Nifi Registry
 
 Para acessar o Nifi e Nifi Registry use as seguintes URLs:
 
@@ -150,7 +150,7 @@ Adicione em ***Name*** o mesmo nome do bucket criado no Registry '*bucket-flows-
 ![Versionamento Apache Nifi Registry OK](ELT/Docs/version-apache-nifi-registry-ok.png)
 
 
-#### Acessando o Database do Sistema ERP
+### Acessando o Database do Sistema ERP
 
 Esta etapa não se destina apenas a visualizar os dados existentes no banco de dados do ERP, mas também a aproveitar as regras de negócio para desenvolver as consultas que serão usadas para extrair os dados do ERP. É possível utilizar qualquer gerenciador de banco de dados, ou o gerenciador exclusivo do banco em questão. Neste exemplo, utilizaremos o [Dbeaver](https://dbeaver.io/download/), que é adequado para qualquer banco de dados relacional.
 
@@ -247,7 +247,7 @@ Exemplo da lógica para execução das cargas
 > ***IMPORTANTE:*** Essa regra de captura dos registros inseridos nos últimos 5 minutos é apenas uma abordagem conceitual, podendo ocorrer falhas na recuperação dos dados do banco. Para uma execução com grande grau de precisão, a inclusão de algumas variáveis de controle é necessária, mas não é o escopo do nosso contexto aqui.
 
 
-#### Configurando os Flows no Apache Nifi
+### Configurando o Flow no Apache Nifi
 
 Um dos primeiros passos no desenvolvimento de Flows no Apache NiFi é verificar se as conexões aos bancos de dados estão criadas e funcionando. Para isso, os 'controller services' são utilizados. No nosso exemplo, teremos um controller service para o MySQL via JDBC e outro para Elasticsearch.
 
@@ -313,17 +313,17 @@ Clique com botão diretito do mouse na parte em branco do Flow e em seguida em "
 
 > ***Obs.:*** Todo esse detalhamento do fluxo é para a extração de clientes. Para as vendas, há um fluxo com a mesma estrutura lógica, mas com uma query de início do MySQL e um índice de destino no Elasticsearch diferentes.
 
-#### Visualizando o resultado no Elasticsearch e Kibana
+### Visualizando o resultado no Elasticsearch e Kibana
 
 Em Desenvolvimento...
 
 
-#### Considerações Finais
+### Considerações Finais
 
 Em Desenvolvimento...
 
 
-# Referências
+## Referências
 
 Apache/Nifi, ***Docker Hub***. Disponível em: <https://hub.docker.com/r/apache/nifi>. Acesso em: 19 abr. 2023.
 
