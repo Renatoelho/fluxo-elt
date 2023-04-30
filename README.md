@@ -97,7 +97,7 @@ Existe um healthcheck para cada contêiner do fluxo:
 
 - ***Contêiner Kibana:*** test: curl -f http://kibana:5601/ || exit 1
 
-Para verificar a saúde dos contêiners execute o seguinte comando e verifique no atributo 'STATUS'.
+Para verificar a saúde dos contêiners execute o seguinte comando e verifique no atributo '***STATUS***'.
 
 ```bash
 docker ps --format "{{.ID}}\t{{.Names}}\t{{.Status}}"
