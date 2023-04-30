@@ -282,9 +282,11 @@ Depois disso, é necessário escolher e configurar um '***DBCPConnectionPool 1.1
 
 ![Propriedades Controller Service](ELT/Docs/exemplo-propriedades-controller-service-elastic.png)
 
-***Configuração do JsonRecordSetWriter***
+
+- ***Configuração do JsonRecordSetWriter***
 
 ![Configuração do JsonRecordSetWriter](ELT/Docs/exemplo-propriedades-controller-JsonRecordSetWriter.png)
+
 
 - ***Lógica para extração contínua a cada 5 Minutos***
 
@@ -297,11 +299,13 @@ Depois disso, é necessário escolher e configurar um '***DBCPConnectionPool 1.1
 
 ![Separa resultado query em arquivos Jsons - Propriedades](ELT/Docs/exemplo-separa-resultado-query-propriedades.png)
 
+
 - ***Grava no Elasticsearch em formato Json***
 
 ![Modelo arquivo para gravação](ELT/Docs/exemplo-arquivo-json.png)
 
 ![Processor Apache Nifi](ELT/Docs/exemplo-processor-elastic.png)
+
 
 - ***Ativando os Flows no Apache Nifi***
 
@@ -312,6 +316,7 @@ Ative o Flow depois de executar o procedimento do processor '***EXECUTOR DO FLOW
 Clique com botão diretito do mouse na parte em branco do Flow e em seguida em '***Start***'.
 
 ![Ativando o Flow](ELT/Docs/exemplo-ativando-flow.png)
+
 
 - ***Flow Completo e Ativo - Clientes***
 
