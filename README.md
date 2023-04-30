@@ -76,12 +76,12 @@ cd ..
 docker-compose -f docker-compose.yaml --compatibility up -d
 ```
 
-> ***IMPORTANTE:*** No primeiro start dos serviços, pode ocorrer um erro no serviço 'nifi-registry' se a permissão de acesso ao volume criado for negada. Nesse caso, desative os serviços e ***altere as permissões do volume***. Use o comando '***sudo chmod -R 777 volumes/nifi_registry/***' e, em seguida, suba novamente os serviços. Tudo deve funcionar corretamente.
+> ***IMPORTANTE:*** No primeiro start dos serviços, pode ocorrer um erro no serviço '***nifi-registry***' se a permissão de acesso ao volume criado for negada. Nesse caso, desative os serviços (***docker-compose -f docker-compose.yaml --compatibility down***) e ***altere as permissões do volume***. Use o comando '***sudo chmod -R 777 volumes/nifi_registry/***' e, em seguida, suba novamente os serviços. Tudo deve funcionar corretamente.
 
 
 ### Monitorando a saúde dos contêiners (healthcheck)
 
-O ***healthcheck*** é um recurso oferecido pelo Docker e implementado no Docker-compose que permite que você monitore o estado de um contêiner em tempo real e detecte se ele está ou não funcionando corretamente. 
+O ***healthcheck*** ferece o recurso de monitoramento de estado de contêiner e saúde da aplicação em tempo real, permitindo detectar se tudo está funcionando corretamente. 
 
 Existe um healthcheck para cada contêiner do fluxo:
 
@@ -97,7 +97,7 @@ Existe um healthcheck para cada contêiner do fluxo:
 
 - ***Contêiner Kibana:*** test: curl -f http://kibana:5601/ || exit 1
 
-Para verificar a saúde dos contêiners execute o seguinte comando e verifique no atributo '***STATUS***'.
+Para verificar a saúde dos contêiners execute o seguinte comando e verifique no atributo ***STATUS***.
 
 ```bash
 docker ps --format "{{.ID}}\t{{.Names}}\t{{.Status}}"
@@ -129,15 +129,15 @@ Para acessar o Nifi e Nifi Registry use as seguintes URLs:
 
 ***1º Passo:*** acesse o Registry e crie um *bucket* em:
 
-***Settings >> New bucket***
+***Settings*** >> ***New bucket***
 
-Em ***Bucket Name*** adicione '*bucket-flows-elt*' e clique em ***CREATE***.
+Em ***Bucket Name*** adicione '***bucket-flows-elt***' e clique em ***CREATE***.
 
 ![Bucket Nifi Registry](ELT/Docs/bucket-nifi-registry.png)
 
 ***2º Passo:*** Acesse o Apache Nifi (Usuário e senha no arquivo docker-compose.yaml) e execute em:
 
-***Menu >> Controller Settings >> Registry Clients >> Add Registry Client***
+***Menu*** >> ***Controller Settings*** >> ***Registry Clients*** >> ***Add Registry Client***
 
 Adicione em ***Name*** o mesmo nome do bucket criado no Registry '*bucket-flows-elt*' em ***Type*** escolha '***NifiRegistryFlowRegistryClient***' e clique em ***ADD***. Em seguida acesse novamente e clique em ***Edit*** e adicione na aba *PROPERTIES* a URL: http://nifi-registry:18080/ clique em ***UPDATE*** e tudo pronto. Agora seus Flows no Apache Nifi já podem ser versionados.
 
@@ -246,7 +246,7 @@ Exemplo da lógica para execução das cargas
 
 ![Exemplo da lógica para execução das cargas](ELT/Docs/exemplo-logica-carga.png)
 
-> ***IMPORTANTE:*** Essa regra de captura dos registros inseridos nos últimos 5 minutos é apenas uma abordagem conceitual, podendo ocorrer falhas na recuperação dos dados do banco. Para uma execução com grande grau de precisão, a inclusão de algumas variáveis de controle é necessária, mas não é o escopo do nosso contexto aqui.
+> ***IMPORTANTE:*** Essa regra de captura dos registros inseridos nos últimos 5 minutos é apenas uma abordagem conceitual, podendo ocorrer falhas na recuperação dos dados do banco. Para uma execução com grande grau de precisão, a inclusão de algumas variáveis de controle são necessárias, mas não é o escopo em nosso contexto aqui.
 
 
 ### Configurando o Flow no Apache Nifi
@@ -255,7 +255,7 @@ Um dos primeiros passos no desenvolvimento de Flows no Apache NiFi é verificar 
 
 - ***Para criar um controller service, é necessário acessar:***
 
-***Configuration (Engrenagem) >> Controller Services >> Create a new controller service***
+***Configuration (Engrenagem)*** >> ***Controller Services*** >> ***Create a new controller service***
 
 Depois disso, é necessário escolher e configurar um '***DBCPConnectionPool 1.19.0***' e um '***JsonRecordSetWriter 1.19.0***' para o MySQL, além de um '***ElasticSearchClientServiceImpl 1.19.0***' para o Elasticsearch. No caso do MySQL, é uma configuração JDBC comum, e é necessário um controller service para converter o resultado da query em um arquivo JSON. Já no caso do Elasticsearch, é necessário informar a URL HTTP://..., o nome de usuário e a senha do servidor Elastic
 
@@ -336,7 +336,7 @@ Crie suas próprias visualizações acessando o link: http://localhost:5601
 
 ### Considerações Finais
 
-Essa prova de conceito (POC) foi desenvolvida para demonstrar a possibilidade de integração entre tecnologias e ferramentas que possuem paradigmas diferentes em busca de um objetivo comum. Partindo de um sistema ERP com um banco de dados relacional, foi utilizada uma ferramenta de processamento de dados em tempo real que atua de maneira contínua na captura dos dados da origem, gravando em um banco de dados NoSQL. Como resultado, foi possível criar diversas visualizações sobre os dados transferidos, demonstrando a flexibilidade e potencial das ferramentas utilizadas.
+Essa prova de conceito (POC) foi desenvolvida para demonstrar a possibilidade de integração entre tecnologias e ferramentas que possuem paradigmas diferentes em busca de um objetivo comum. Partindo de um sistema ERP com um banco de dados relacional, foi utilizada uma ferramenta de processamento de dados em tempo real que atua de maneira contínua na captura dos dados da origem, gravando em um banco de dados NoSQL. Como resultado, é possível criar diversas visualizações sobre os dados transferidos, demonstrando a flexibilidade e potencial das ferramentas utilizadas.
 
 
 ## Referências
