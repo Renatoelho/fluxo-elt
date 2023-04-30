@@ -85,17 +85,17 @@ O ***healthcheck*** é um recurso oferecido pelo Docker e implementado no Docker
 
 Existe um healthcheck para cada contêiner do fluxo:
 
-- ***Contêiner Sistema ERP:*** test: curl -f http://erp-app:8888/healthcheck
+- ***Contêiner Sistema ERP:*** test: curl -f http://erp-app:8888/healthcheck || exit 1
 
-- ***Contêiner Database ERP:*** test: mysqladmin ping -h erp-database -u root -pd8Uwj1wos64h
+- ***Contêiner Database ERP:*** test: mysqladmin ping -h erp-database -u root -pd8Uwj1wos64h || exit 1
 
-- ***Contêiner Apache Nifi:*** test: wget -q --spider http://nifi-server:8443/nifi-api/system-diagnostics
+- ***Contêiner Apache Nifi:*** test: wget -q --spider http://nifi-server:8443/nifi-api/system-diagnostics || exit 1
 
-- ***Contêiner Apache Nifi Registry:*** test: wget -q --spider http://nifi-registry:18080/nifi-registry/
+- ***Contêiner Apache Nifi Registry:*** test: wget -q --spider http://nifi-registry:18080/nifi-registry/ || exit 1
 
-- ***Contêiner Elasticsearch:*** <Definir...>
+- ***Contêiner Elasticsearch:*** test: curl -f http://elasticsearch:9200/_cluster/health || exit 1
 
-- ***Contêiner Kibana:*** <Definir...>
+- ***Contêiner Kibana:*** test: curl -f http://kibana:5601/ || exit 1
 
 Para verificar a saúde dos contêiners execute o seguinte comando e verifique no atributo 'STATUS'.
 
@@ -268,6 +268,8 @@ Depois disso, é necessário escolher e configurar um '***DBCPConnectionPool 1.1
 ![Processor Apache Nifi](ELT/Docs/exemplo-processor-mysql.png)
 
 ![Propriedades Processor](ELT/Docs/exemplo-propriedades-processor-mysql.png)
+
+![Propriedades Controller Service](ELT/Docs/exemplo-propriedades-controller-service-nifi.png)
 
 
 - ***Conexão com Elasticsearch***
