@@ -313,19 +313,30 @@ Clique com botão diretito do mouse na parte em branco do Flow e em seguida em "
 
 > ***Obs.:*** Todo esse detalhamento do fluxo é para a extração de clientes. Para as vendas, há um fluxo com a mesma estrutura lógica, mas com uma query de início do MySQL e um índice de destino no Elasticsearch diferentes.
 
+
 ### Visualizando o resultado no Elasticsearch e Kibana
 
-Em Desenvolvimento...
+Este dashboard está sendo estruturado no ***Kibana*** a partir dos dados que foram transferidos para o ***Elasticsearch***, apresentando uma visão dos resultados da integração com as quantidades de clientes e vendas. Esta é apenas uma amostra do que é possível fazer com os dados existentes no banco de dados NoSQL.
+
+Crie suas próprias visualizações acessando o link: http://localhost:5601
+
+![Dash da intergração no Kibana](ELT/Docs/exemplo-dash-kibana.png)
 
 
 ### Considerações Finais
 
-Em Desenvolvimento...
+Essa prova de conceito (POC) foi desenvolvida para demonstrar a possibilidade de integração entre tecnologias e ferramentas que possuem paradigmas diferentes em busca de um objetivo comum. Partindo de um sistema ERP com um banco de dados relacional, foi utilizada uma ferramenta de processamento de dados em tempo real que atua de maneira contínua na captura dos dados da origem, gravando em um banco de dados NoSQL. Como resultado, foi possível criar diversas visualizações sobre os dados transferidos, demonstrando a flexibilidade e potencial das ferramentas utilizadas.
 
 
 ## Referências
 
 Apache/Nifi, ***Docker Hub***. Disponível em: <https://hub.docker.com/r/apache/nifi>. Acesso em: 19 abr. 2023.
+
+Volumes, ***Docker Docs***. Disponível em: <https://docs.docker.com/storage/volumes/>. Acesso em: 24 abr. 2023.
+
+Elasticsearch, ***Docker Hub***. Disponível em: <https://hub.docker.com/_/elasticsearch>. Acesso em: 25 abr. 2023.
+
+Kibana, ***Docker Hub***. Disponível em: <https://hub.docker.com/_/kibana>. Acesso em: 25 abr. 2023.
 
 NiFi System Administrator’s Guide, ***Apache NiFi***. Disponível em: <https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html>. Acesso em: 22 abr. 2023.
 
@@ -338,11 +349,5 @@ How to build a data lake from scratch - Part 1: The setup, ***Victor Seifert***.
 How to build a data lake from scratch — Part 2: Connecting the components, ***Victor Seifert***. Disponível em: <https://medium.com/towards-data-science/how-to-build-a-data-lake-from-scratch-part-2-connecting-the-components-1bc659cb3f4f>. acesso em: 23 abr. 2023.
 
 How to Successfully Implement A Healthcheck In Docker Compose, ***Linuxhint***. Disponível em: <https://linuxhint.com/how-to-successfully-implement-healthcheck-in-docker-compose/>. Acesso em: 24 abr. 2023.
-
-Volumes, ***Docker Docs***. Disponível em: <https://docs.docker.com/storage/volumes/>. Acesso em: 24 abr. 2023.
-
-Elasticsearch, ***Docker Hub***. Disponível em: <https://hub.docker.com/_/elasticsearch>. Acesso em: 25 abr. 2023.
-
-Kibana, ***Docker Hub***. Disponível em: <https://hub.docker.com/_/kibana>. Acesso em: 25 abr. 2023.
 
 Expression Language Guide, ***Apache NiFi Expression Language Guide***. Disponível em: <https://nifi.apache.org/docs/nifi-docs/>. Acesso em: 26 abr. 2023.
