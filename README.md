@@ -1,4 +1,4 @@
-# Integração Entre Bases de Dados Heterogêneas 
+# Integração entre bases de dados heterogêneas 
 
 ![Fluxo de Integração de Dados](ELT/Docs/Fluxo-ELT-1.0.png)
 
@@ -346,6 +346,3 @@ Elasticsearch, ***Docker Hub***. Disponível em: <https://hub.docker.com/_/elast
 Kibana, ***Docker Hub***. Disponível em: <https://hub.docker.com/_/kibana>. Acesso em: 25 abr. 2023.
 
 Expression Language Guide, ***Apache NiFi Expression Language Guide***. Disponível em: <https://nifi.apache.org/docs/nifi-docs/>. Acesso em: 26 abr. 2023.
-
-
-Texto, ***Origem***. Disponível em: <URL>. Acesso em: XX abr. 2023.
