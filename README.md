@@ -282,6 +282,10 @@ Depois disso, é necessário escolher e configurar um '***DBCPConnectionPool 1.1
 
 ![Propriedades Controller Service](ELT/Docs/exemplo-propriedades-controller-service-elastic.png)
 
+***Configuração do JsonRecordSetWriter***
+
+![Configuração do JsonRecordSetWriter](ELT/Docs/exemplo-propriedades-controller-JsonRecordSetWriter.png)
+
 - ***Lógica para extração contínua a cada 5 Minutos***
 
 ![Lógica de extração contínua](ELT/Docs/exemplo-logica-extracao-continua.png)
