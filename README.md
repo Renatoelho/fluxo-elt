@@ -1,4 +1,4 @@
-# Integração de Dados entre Sistemas Heterogêneos 
+# Integração Entre Bases de Dados Heterogêneas 
 
 ![Fluxo de Integração de Dados](ELT/Docs/Fluxo-ELT-1.0.png)
 
@@ -137,7 +137,7 @@ Em ***Bucket Name*** adicione '*bucket-flows-elt*' e clique em ***CREATE***.
 
 ***Menu >> Controller Settings >> Registry Clients >> Add Registry Client***
 
-Adicione em ***Name*** o mesmo nome do bucket criado no Registry '*bucket-flows-elt*' em ***Type*** escolha '*NifiRegistryFlowRegistryClient*' e clique em ***ADD***. Em seguida acesse novamente e clique em ***Edit*** e adicione na aba *PROPERTIES* a URL: http://nifi-registry:18080/ clique em ***UPDATE*** e tudo pronto. Agora seus Flows no Apache Nifi já podem ser versionados.
+Adicione em ***Name*** o mesmo nome do bucket criado no Registry '*bucket-flows-elt*' em ***Type*** escolha '***NifiRegistryFlowRegistryClient***' e clique em ***ADD***. Em seguida acesse novamente e clique em ***Edit*** e adicione na aba *PROPERTIES* a URL: http://nifi-registry:18080/ clique em ***UPDATE*** e tudo pronto. Agora seus Flows no Apache Nifi já podem ser versionados.
 
 - Configurações:
 
@@ -255,7 +255,7 @@ Um dos primeiros passos no desenvolvimento de Flows no Apache NiFi é verificar 
 
 ***Configuration (Engrenagem) >> Controller Services >> Create a new controller service***
 
-Depois disso, é necessário escolher e configurar um 'DBCPConnectionPool 1.19.0' e um 'JsonRecordSetWriter 1.19.0' para o MySQL, além de um 'ElasticSearchClientServiceImpl 1.19.0' para o Elasticsearch. No caso do MySQL, é uma configuração JDBC comum, e é necessário um controller service para converter o resultado da query em um arquivo JSON. Já no caso do Elasticsearch, é necessário informar a URL HTTP://..., o nome de usuário e a senha do servidor Elastic
+Depois disso, é necessário escolher e configurar um '***DBCPConnectionPool 1.19.0***' e um '***JsonRecordSetWriter 1.19.0***' para o MySQL, além de um '***ElasticSearchClientServiceImpl 1.19.0***' para o Elasticsearch. No caso do MySQL, é uma configuração JDBC comum, e é necessário um controller service para converter o resultado da query em um arquivo JSON. Já no caso do Elasticsearch, é necessário informar a URL HTTP://..., o nome de usuário e a senha do servidor Elastic
 
 
 - ***Controller Services***
@@ -276,6 +276,7 @@ Depois disso, é necessário escolher e configurar um 'DBCPConnectionPool 1.19.0
 
 ![Propriedades Processor](ELT/Docs/exemplo-propriedades-processor-elastic.png)
 
+![Propriedades Controller Service](ELT/Docs/exemplo-propriedades-controller-service-elastic.png)
 
 - ***Lógica para extração contínua a cada 5 Minutos***
 
@@ -288,22 +289,13 @@ Depois disso, é necessário escolher e configurar um 'DBCPConnectionPool 1.19.0
 
 ![Separa resultado query em arquivos Jsons - Propriedades](ELT/Docs/exemplo-separa-resultado-query-propriedades.png)
 
-
 - ***Grava no Elasticsearch em formato Json***
-
-![Grava no Elasticsearch](ELT/Docs/exemplo-grava-elasticsearch.png)
 
 ![Modelo arquivo para gravação](ELT/Docs/exemplo-arquivo-json.png)
 
+![Processor Apache Nifi](ELT/Docs/exemplo-processor-elastic.png)
 
-- ***Flow Completo - Clientes***
-
-![Flow Completo - Clientes](ELT/Docs/exemplo-flow-clientes.png)
-
-> ***Obs.:*** Todo esse detalhamento do fluxo é para a extração de clientes. Para as vendas, há um fluxo com a mesma estrutura lógica, mas com uma query de início do MySQL e uma índice de destino no Elasticsearch diferentes.
-
-
-#### Ativando os Flows no Apache Nifi
+- ***Ativando os Flows no Apache Nifi***
 
 ***IMPORTANTE:*** O processor '***EXECUTOR DO FLOW (EXECUTA UM VEZ)***' deve ser executado uma única vez e em seguida desabilitado, pois ele é responsável por gerar a variável '***numero_execucao_flow***', que será utilizada para definir se a execução da query do MySQL será completa ou incremental (ou seja, apenas os registros dos *últimos 5 minutos*), pelo processor '***REEXECUTOR DO FLOW***'.
 
@@ -311,8 +303,13 @@ Ative o Flow depois de executar o procedimento do processor '***EXECUTOR DO FLOW
 
 Clique com botão diretito do mouse na parte em branco do Flow e em seguida em "Start".
 
-![Ativando o Flow](ELT/Docs/ativando-flow.png)
+![Ativando o Flow](ELT/Docs/exemplo-ativando-flow.png)
 
+- ***Flow Completo e Ativo - Clientes***
+
+![Flow Completo - Clientes](ELT/Docs/exemplo-flow-clientes.png)
+
+> ***Obs.:*** Todo esse detalhamento do fluxo é para a extração de clientes. Para as vendas, há um fluxo com a mesma estrutura lógica, mas com uma query de início do MySQL e um índice de destino no Elasticsearch diferentes.
 
 #### Visualizando o resultado no Elasticsearch e Kibana
 
