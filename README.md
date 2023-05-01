@@ -4,6 +4,8 @@
 
 Trata-se de um processo de ***ELT*** (Extração, Carga e Transformação) que integra um sistema legado com um banco de dados ***relacional*** (no exemplo, um MySQL) para um banco ***NoSQL*** (ElasticSearch) sem alterações significativas nos dados transferidos.
 
+[![Nome do vídeo](https://img.youtube.com/vi/YGCRnjFrOro/0.jpg)](https://www.youtube.com/watch?v=YGCRnjFrOro "Nome do vídeo")
+
 Para implementar esse fluxo de ELT, optou-se por uma arquitetura baseada em containers para todas as aplicações. A simulação do sistema legado também foi feita por meio de containers, com um para o ***MySQL*** e outro para o sistema de ***ERP*** (uma aplicação em ***Python*** que cadastra novos clientes e vendas de maneira contínua). O servidor ***Apache Nifi*** é o responsável por se conectar ao database do sistema legado e enviar, de forma contínua, para o ***Elasticsearch*** todos os novos clientes e vendas registrados no ERP. Além disso, o container com ***Kibana*** é utilizado para visualização do resultado da integração.
 
 Nesse exemplo específico, foram criados dois flows separados, um para capturar novos clientes e outro para novas vendas. Ambos os flows são versionados pelo ***Apache Nifi Registry*** e são executados continuamente, capturando novos dados à medida que são inseridos no sistema legado. Esses dados são capturados e enviados para o banco de dados NoSQL, sem grandes alterações em sua estrutura original. Dessa forma, garantimos uma integração eficiente entre as bases que são heterogêneas.
