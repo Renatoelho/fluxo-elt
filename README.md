@@ -128,7 +128,7 @@ docker volume ls
 ![Volumes Docker](ELT/Docs/exemplo-volumes-docker.png)
 
 
-### Configurando o Versionamento dos Flows no Apache Nifi Registry
+### Configurando o versionamento dos flows no Apache Nifi Registry
 
 Para acessar o Nifi e Nifi Registry use as seguintes URLs:
 
@@ -161,7 +161,7 @@ Adicione em ***Name*** o mesmo nome do bucket criado no Registry '*bucket-flows-
 ![Versionamento Apache Nifi Registry OK](ELT/Docs/version-apache-nifi-registry-ok.png)
 
 
-### Acessando o Database do Sistema ERP
+### Acessando o database do sistema ERP
 
 Esta etapa não se destina apenas a visualizar os dados existentes no banco de dados do ERP, mas também a aproveitar as regras de negócio para desenvolver as consultas que serão usadas para extrair os dados do ERP. É possível utilizar qualquer gerenciador de banco de dados, ou o gerenciador exclusivo do banco em questão. Neste exemplo, utilizaremos o [Dbeaver](https://dbeaver.io/download/), que é adequado para qualquer banco de dados relacional.
 
@@ -251,14 +251,14 @@ ORDER BY id;
 
 As variáveis '***clausula_where_flow***' e '***numero_execucao_flow***' no Apache Nifi são responsáveis por definir se será uma carga inicial completa ou cargas incrementais, isso para os Flows de Clientes e Vendas, que neste caso serão feitas a cada 5 minutos. Para mais detalhes sobre essa regra, consulte o fluxo.
 
-Exemplo da lógica para execução das cargas
+Exemplo da lógica para execução das cargas:
 
 ![Exemplo da lógica para execução das cargas](ELT/Docs/exemplo-logica-carga.png)
 
 > ***IMPORTANTE:*** Essa regra de captura dos registros inseridos nos últimos 5 minutos é apenas uma abordagem conceitual, podendo ocorrer falhas na recuperação dos dados do banco. Para uma execução com grande grau de precisão, a inclusão de algumas variáveis de controle são necessárias, mas não é o escopo em nosso contexto aqui.
 
 
-### Configurando o Flow no Apache Nifi
+### Configurando o flow no Apache Nifi
 
 Um dos primeiros passos no desenvolvimento de Flows no Apache NiFi é verificar se as conexões aos bancos de dados estão criadas e funcionando. Para isso, os '***controller services***' são utilizados. No nosso exemplo, teremos um controller service para o MySQL via JDBC e outro para Elasticsearch.
 
@@ -266,7 +266,7 @@ Um dos primeiros passos no desenvolvimento de Flows no Apache NiFi é verificar 
 
 ***Configuration (Engrenagem)*** >> ***Controller Services*** >> ***Create a new controller service***
 
-Depois disso, é necessário escolher e configurar um '***DBCPConnectionPool 1.19.0***' e um '***JsonRecordSetWriter 1.19.0***' para o MySQL, além de um '***ElasticSearchClientServiceImpl 1.19.0***' para o Elasticsearch. No caso do MySQL, é uma configuração JDBC comum, e é necessário um controller service para converter o resultado da query em um arquivo JSON. Já no caso do Elasticsearch, é necessário informar a URL HTTP://..., o nome de usuário e a senha do servidor Elastic
+Depois disso, é necessário escolher e configurar um '***DBCPConnectionPool 1.19.0***' e um '***JsonRecordSetWriter 1.19.0***' para o MySQL, além de um '***ElasticSearchClientServiceImpl 1.19.0***' para o Elasticsearch. No caso do MySQL, é uma configuração JDBC comum, e é necessário um controller service para converter o resultado da query em um arquivo JSON. Já no caso do Elasticsearch, é necessário informar a URL HTTP://..., o nome de usuário e a senha.
 
 
 - ***Controller Services***
