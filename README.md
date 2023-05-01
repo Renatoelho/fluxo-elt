@@ -9,7 +9,7 @@ Trata-se de um processo de ***ELT*** (Extração, Carga e Transformação) que i
 </center>
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=YGCRnjFrOro"><img src="https://img.youtube.com/vi/YGCRnjFrOro/0.jpg" alt="Vídeo do Youtube..."></a>
+  <a href="ELT/Docs/exemplo-healthcheck.png"><img src="https://img.youtube.com/vi/YGCRnjFrOro/0.jpg" alt="Vídeo do Youtube..." target="_blank"></a>
 </p>
 
 
