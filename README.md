@@ -43,6 +43,15 @@ O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicat
 
 # Implementação
 
+### Requisitos para implementação
+
+- Ubuntu 20.04 (Host)
+
+- Docker 23.0.3 (Host)
+
+- Docker-Compose 1.25.0 (Host)
+
+- Git 2.25.1 ou superior (Host)
 
 ### Clonando o repositório para iniciar a implementação
 
