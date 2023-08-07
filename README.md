@@ -56,7 +56,7 @@ O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicat
 ### Clonando o repositório para iniciar a implementação
 
 ```bash
-git clone https://github.com/Renatoelho/fluxo-elt.git "fluxo-elt"
+git clone https://github.com/Renatoelho/fluxo-elt.git fluxo-elt
 ```
 
 ```bash
@@ -140,7 +140,7 @@ Para acessar o Nifi e Nifi Registry use as seguintes URLs:
 
 ***Settings*** >> ***New bucket***
 
-Em ***Bucket Name*** adicione '***bucket-flows-elt***' e clique em ***CREATE***.
+Em ***Bucket Name*** adicione ***bucket-flows-elt*** e clique em ***CREATE***.
 
 ![Bucket Nifi Registry](ELT/Docs/bucket-nifi-registry.png)
 
@@ -148,7 +148,7 @@ Em ***Bucket Name*** adicione '***bucket-flows-elt***' e clique em ***CREATE***.
 
 ***Menu*** >> ***Controller Settings*** >> ***Registry Clients*** >> ***Add Registry Client***
 
-Adicione em ***Name*** o mesmo nome do bucket criado no Registry '*bucket-flows-elt*' em ***Type*** escolha '***NifiRegistryFlowRegistryClient***' e clique em ***ADD***. Em seguida acesse novamente e clique em ***Edit*** e adicione na aba *PROPERTIES* a URL: http://nifi-registry:18080/ clique em ***UPDATE*** e tudo pronto. Agora seus Flows no Apache Nifi já podem ser versionados.
+Adicione em ***Name*** o mesmo nome do bucket criado no Registry *bucket-flows-elt* em ***Type*** escolha ***NifiRegistryFlowRegistryClient*** e clique em ***ADD***. Em seguida acesse novamente e clique em ***Edit*** e adicione na aba *PROPERTIES* a URL: http://nifi-registry:18080/ clique em ***UPDATE*** e tudo pronto. Agora seus Flows no Apache Nifi já podem ser versionados.
 
 - Configurações:
 
