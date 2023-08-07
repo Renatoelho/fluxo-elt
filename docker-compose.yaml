@@ -104,8 +104,8 @@ services:
       timeout: 40s
       retries: 3
     volumes:
-        - registry_database:/opt/nifi-registry/nifi-registry-current/database
-        - registry_flows:/opt/nifi-registry/nifi-registry-current/flow_storage
+        - ./volumes/nifi_registry/database:/opt/nifi-registry/nifi-registry-current/database
+        - ./volumes/nifi_registry/flows:/opt/nifi-registry/nifi-registry-current/flow_storage
     networks:
         - rede-fluxo-elt
   elasticsearch:
@@ -168,8 +168,6 @@ volumes:
   nifi_conf:
   nifi_credentials:
   nifi_logs:
-  registry_database:
-  registry_flows:
   erp_database:
   elastic-data:
 
