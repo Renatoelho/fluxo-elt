@@ -247,7 +247,7 @@ Esta etapa não se destina apenas a visualizar os dados existentes no banco de d
 
 Temos as queries originais que refletem as regras de negócio, bem como as queries ajustadas que serão utilizadas no Apache NiFi. Estas últimas possuem algumas regras para que a query seja alternada entre a primeira execução, que faz uma carga completa, e em todas as demais execuções, apenas as incrementais são executadas. Abaixo estão os exemplos de queries originais e ajustadas para serem executadas no fluxo do Apache NiFi:
 
-> As credenciais de acesso ao banco de dados você ![acessa aqui](#mysql-credenciais).
+> As credenciais de acesso ao banco de dados você [acessa aqui](#mysql-credenciais).
 
 + Originais:
 
