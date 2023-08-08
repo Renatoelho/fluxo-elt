@@ -20,6 +20,17 @@ Para implementar esse fluxo de ELT, optou-se por uma arquitetura baseada em cont
 Nesse exemplo específico, foram criados dois flows separados, um para capturar novos clientes e outro para novas vendas. Ambos os flows são versionados pelo ***Apache Nifi Registry*** e são executados continuamente, capturando novos dados à medida que são inseridos no sistema legado. Esses dados são capturados e enviados para o banco de dados NoSQL, sem grandes alterações em sua estrutura original. Dessa forma, garantimos uma integração eficiente entre as bases que são heterogêneas.
 
 
+# Tópicos
+
++ [Tecnologias](#tecnologias)
++ [Requisitos](#requisitos)
++ [Apresentação em vídeo](#apresentacao)
++ [Implantação](#implantacao)
++ [Referências](#referencias)
+
+
+# Tecnologias<a name="tecnologias"></a>
+
 ## Apache Nifi
 
 Apache Nifi é uma plataforma open source que permite o gerenciamento e processamento de dados em tempo real de forma simples e escalável. Ele foi desenvolvido para lidar com fluxos de dados em ambientes distribuídos, oferecendo uma interface gráfica amigável para o desenvolvimento de pipelines de dados. O Apache Nifi suporta diversos tipos de fontes de dados, incluindo sistemas de arquivos, bancos de dados, serviços web, fluxos de dados, e muitos outros. Além disso, ele oferece integração com outras ferramentas de Big Data, como Apache Hadoop, Spark, e Hive.
@@ -63,12 +74,16 @@ O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicat
 + ![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04-E3E3E3)
 
 
-# Implantação<a name="implantacao"></a>
+# Apresentação em vídeo<a name="apresentacao"></a>
 
+Em desenvolvimento...
+
+
+# Implantação<a name="implantacao"></a>
 
 ### Credenciais de acesso às ferramentas
 
-+ Apache Nifi <a name="apache-nifi-credenciais"></a>
++ Apache Nifi
 
 |Parâmetro         |Valor         |
 |------------------|--------------|
@@ -76,14 +91,14 @@ O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicat
 |Senha             |kP8mDnTbXs5H7qL9vFjE3GcA4R6Z2Yy|
 |URL externa       |https://localhost:8443/nifi/|
 
-+ Apache Nifi Registry<a name="apache-nifi-registry-credenciais"></a>
++ Apache Nifi Registry
 
 |Parâmetro         |Valor         |
 |------------------|--------------|
 |URL interna       |http://nifi-registry:18080/|
 |URL externa       |http://localhost:18080/nifi-registry/|
 
-+ MySQL<a name="mysql-credenciais"></a>
++ MySQL
 
 |Parâmetro         |Valor         |
 |------------------|--------------|
@@ -94,7 +109,7 @@ O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicat
 |Host externo      |localhost|
 |Porta             |3306|
 
-+ Elasticsearch<a name="elastic-credenciais"></a>
++ Elasticsearch
 
 |Parâmetro         |Valor         |
 |------------------|--------------|
@@ -104,7 +119,7 @@ O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicat
 |URL externa       |http://localhost:9200|
 
 
-+ Kibana<a name="kibana-credenciais"></a>
++ Kibana
 
 |Parâmetro         |Valor         |
 |------------------|--------------|
@@ -152,17 +167,17 @@ O ***healthcheck*** é um recurso de monitoramento de estado do contêiner e sa�
 
 Existe um healthcheck para cada contêiner do fluxo:
 
-+ ***Contêiner Sistema ERP:*** ```test: curl -f http://erp-app:8888/healthcheck || exit 1```
++ ***Sistema ERP:*** ```test: curl -f http://erp-app:8888/healthcheck || exit 1```
 
-+ ***Contêiner Database ERP:*** ```test: mysqladmin ping -h erp-database -u root -pd8Uwj1wos64h || exit 1```
++ ***Database ERP:*** ```test: mysqladmin ping -h erp-database -u root -pd8Uwj1wos64h || exit 1```
 
-+ ***Contêiner Apache Nifi:*** ```test: wget -q --spider http://nifi:8443/nifi-api/system-diagnostics || exit 1```
++ ***Apache Nifi:*** ```test: wget -q --spider http://nifi:8443/nifi-api/system-diagnostics || exit 1```
 
-+ ***Contêiner Apache Nifi Registry:*** ```test: wget -q --spider http://nifi-registry:18080/nifi-registry/ || exit 1```
++ ***Apache Nifi Registry:*** ```test: wget -q --spider http://nifi-registry:18080/nifi-registry/ || exit 1```
 
-+ ***Contêiner Elasticsearch:*** ```test: curl -f http://elasticsearch:9200/_cluster/health || exit 1```
++ ***Elasticsearch:*** ```test: curl -f http://elasticsearch:9200/_cluster/health || exit 1```
 
-+ ***Contêiner Kibana:*** ```test: curl -f http://kibana:5601/ || exit 1```
++ ***Kibana:*** ```test: curl -f http://kibana:5601/ || exit 1```
 
 Para verificar a saúde dos contêiners execute o seguinte comando e verifique no atributo ***STATUS***.
 
@@ -396,7 +411,7 @@ Clique com botão diretito do mouse na parte em branco do Flow e em seguida em *
 
 Este dashboard está sendo estruturado no ***Kibana*** a partir dos dados que foram transferidos para o ***Elasticsearch***, apresentando uma visão dos resultados da integração com as quantidades de clientes e vendas. Esta é apenas uma amostra do que é possível fazer com os dados existentes no banco de dados NoSQL.
 
-Crie suas próprias visualizações acessando o link: http://localhost:5601
+Crie suas próprias visualizações acessando o link: [http://localhost:5601](http://localhost:5601)
 
 ![Dash da intergração no Kibana](ELT/Docs/exemplo-dash-kibana.png)
 
@@ -406,11 +421,11 @@ Crie suas próprias visualizações acessando o link: http://localhost:5601
 Essa prova de conceito (POC) foi desenvolvida para demonstrar a possibilidade de integração entre tecnologias e ferramentas que possuem paradigmas diferentes em busca de um objetivo comum. Partindo de um sistema ERP com um banco de dados relacional, foi utilizada uma ferramenta de processamento de dados em tempo real que atua de maneira contínua na captura dos dados da origem, gravando em um banco de dados NoSQL. Como resultado, é possível criar diversas visualizações sobre os dados transferidos, demonstrando a flexibilidade e potencial das ferramentas utilizadas.
 
 
-## Referências
+# Referências<a name="referencias"></a>
 
 Apache/Nifi, ***Docker Hub***. Disponível em: \<https://hub.docker.com/r/apache/nifi\>. Acesso em: 19 abr. 2023.
 
-Volumes, ***Docker Docs***. Disponível em: \<https://docs.docker.com/storage/volumes/\>. Acesso em: 24 abr. 2023.
+Volumes, ***Docker Docs***. Disponível em: \<https://docs.docker.com/storage/volumes\>. Acesso em: 24 abr. 2023.
 
 Elasticsearch, ***Docker Hub***. Disponível em: \<https://hub.docker.com/_/elasticsearch\>. Acesso em: 25 abr. 2023.
 
@@ -426,6 +441,6 @@ How to build a data lake from scratch - Part 1: The setup, ***Victor Seifert***.
 
 How to build a data lake from scratch - Part 2: Connecting the components, ***Victor Seifert***. Disponível em: \<https://medium.com/towards-data-science/how-to-build-a-data-lake-from-scratch-part-2-connecting-the-components-1bc659cb3f4f\>. acesso em: 23 abr. 2023.
 
-How to Successfully Implement A Healthcheck In Docker Compose, ***Linuxhint***. Disponível em: \<https://linuxhint.com/how-to-successfully-implement-healthcheck-in-docker-compose/\>. Acesso em: 24 abr. 2023.
+How to Successfully Implement A Healthcheck In Docker Compose, ***Linuxhint***. Disponível em: \<https://linuxhint.com/how-to-successfully-implement-healthcheck-in-docker-compose\>. Acesso em: 24 abr. 2023.
 
-Expression Language Guide, ***Apache NiFi Expression Language Guide***. Disponível em: \<https://nifi.apache.org/docs/nifi-docs/\>. Acesso em: 26 abr. 2023.
+Expression Language Guide, ***Apache NiFi Expression Language Guide***. Disponível em: \<https://nifi.apache.org/docs/nifi-docs\>. Acesso em: 26 abr. 2023.
