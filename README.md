@@ -19,6 +19,8 @@ Para implementar esse fluxo de ELT, optou-se por uma arquitetura baseada em cont
 
 Nesse exemplo específico, foram criados dois flows separados, um para capturar novos clientes e outro para novas vendas. Ambos os flows são versionados pelo ***Apache Nifi Registry*** e são executados continuamente, capturando novos dados à medida que são inseridos no sistema legado. Esses dados são capturados e enviados para o banco de dados NoSQL, sem grandes alterações em sua estrutura original. Dessa forma, garantimos uma integração eficiente entre as bases que são heterogêneas.
 
+> ***IMPORTANTE***: Este ambiente foi configurado para fins de desenvolvimento e estudos, e algumas configurações foram simplificadas para facilitar a compreensão do ambiente como um todo. No entanto, em um ambiente de produção, é crucial tomar precauções adicionais.
+
 
 # Tópicos
 
@@ -83,7 +85,7 @@ Em desenvolvimento...
 
 ### Credenciais de acesso às ferramentas
 
-+ Apache Nifi
++ Apache Nifi<a name="nifi-credenciais"></a>
 
 |Parâmetro         |Valor         |
 |------------------|--------------|
@@ -98,7 +100,7 @@ Em desenvolvimento...
 |URL interna       |http://nifi-registry:18080/|
 |URL externa       |http://localhost:18080/nifi-registry/|
 
-+ MySQL
++ MySQL<a name="mysql-credenciais"></a>
 
 |Parâmetro         |Valor         |
 |------------------|--------------|
@@ -108,8 +110,11 @@ Em desenvolvimento...
 |Host interno      |erp-database|
 |Host externo      |localhost|
 |Porta             |3306|
+|Database Connection URL|jdbc:mysql://erp-database:3306/db_erp|
+|Database Driver Class Name|com.mysql.cj.jdbc.Driver|
+|Database Driver Location|/opt/nifi/nifi-current/jdbc/mysql-connector-j-8.0.31.jar|
 
-+ Elasticsearch
++ Elasticsearch<a name="elastic-credenciais"></a>
 
 |Parâmetro         |Valor         |
 |------------------|--------------|
@@ -125,8 +130,10 @@ Em desenvolvimento...
 |------------------|--------------|
 |URL externa       |http://localhost:5601|
 
+> ***Observação:*** A diferença entre Host/URL interno ou externo é que os internos são utilizados dentro da rede onde as aplicações estão sendo executadas, permitindo a comunicação entre elas. Já os externos são destinados aos usuários para que possam acessar as ferramentas a partir de seus computadores, onde as aplicações estão sendo executadas.
 
-### Clonando o repositório para iniciar a implantação
+
+### Clonando o repositório do projeto
 
 ```bash
 git clone https://github.com/Renatoelho/fluxo-elt.git fluxo-elt
@@ -137,7 +144,7 @@ cd fluxo-elt/
 ```
 
 
-### Fazendo o build da imagem que simula o ERP
+### Construindo a imagem base que simula o ERP
 
 ```bash
 cd ERP/
@@ -205,7 +212,7 @@ docker volume ls
 
 Para acessar o Nifi e Nifi Registry use as seguintes URLs:
 
-+ https://localhost:8443/nifi/ (Usuário e senha no arquivo docker-compose.yaml)
++ https://localhost:8443/nifi/ [(Usuário e senha Apache Nifi)](#nifi-credenciais)
 
 + http://localhost:18080/nifi-registry/
 
@@ -240,7 +247,7 @@ Esta etapa não se destina apenas a visualizar os dados existentes no banco de d
 
 Temos as queries originais que refletem as regras de negócio, bem como as queries ajustadas que serão utilizadas no Apache NiFi. Estas últimas possuem algumas regras para que a query seja alternada entre a primeira execução, que faz uma carga completa, e em todas as demais execuções, apenas as incrementais são executadas. Abaixo estão os exemplos de queries originais e ajustadas para serem executadas no fluxo do Apache NiFi:
 
-> As credenciais de acesso ao banco de dados estão no arquivo [docker-compose.yaml](docker-compose.yaml).
+> As credenciais de acesso ao banco de dados você ![acessa aqui](#mysql-credenciais).
 
 + Originais:
 
@@ -322,7 +329,7 @@ ${clausula_where_flow}
 ORDER BY id;
 ```
 
-As variáveis '***clausula_where_flow***' e '***numero_execucao_flow***' no Apache Nifi são responsáveis por definir se será uma carga inicial completa ou cargas incrementais, isso para os Flows de Clientes e Vendas, que neste caso serão feitas a cada 5 minutos. Para mais detalhes sobre essa regra, consulte o fluxo.
+As variáveis ```clausula_where_flow``` e ```numero_execucao_flow``` no Apache Nifi são responsáveis por definir se será uma carga inicial completa ou cargas incrementais, isso para os Flows de Clientes e Vendas, que neste caso serão feitas a cada 5 minutos. Para mais detalhes sobre essa regra, consulte o fluxo.
 
 + Exemplo da lógica para execução das cargas
 
@@ -339,7 +346,7 @@ Um dos primeiros passos no desenvolvimento de Flows no Apache NiFi é verificar 
 
 ***Configuration (Engrenagem)*** >> ***Controller Services*** >> ***Create a new controller service***
 
-Depois disso, é necessário escolher e configurar um ```DBCPConnectionPool 1.19.0``` e um ```JsonRecordSetWriter 1.19.0``` para o MySQL, além de um ```ElasticSearchClientServiceImpl 1.19.0``` para o Elasticsearch. No caso do MySQL, é uma configuração JDBC comum, e é necessário um controller service para converter o resultado da query em um arquivo JSON. Já no caso do Elasticsearch, é necessário informar a URL HTTP://..., o nome de usuário e a senha.
+Depois disso, é necessário escolher e configurar um ```DBCPConnectionPool 1.19.0``` e um ```JsonRecordSetWriter 1.19.0``` para o MySQL, além de um ```ElasticSearchClientServiceImpl 1.19.0``` para o Elasticsearch. No caso do ***MySQL***, é uma configuração JDBC comum, [usuário e senha](#mysql-credenciais), e é necessário um controller service para converter o resultado da query em um arquivo JSON. Já no caso do ***Elasticsearch***, é necessário informar a [URL HTTP, usuário e a senha](#elastic-credenciais).
 
 
 + ***Controller Services***

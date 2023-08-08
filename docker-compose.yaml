@@ -136,7 +136,7 @@ services:
     ports:
       - "9200:9200"
     volumes:
-      - elastic-data:/usr/share/elasticsearch/data
+      - elastic_data:/usr/share/elasticsearch/data
     networks:
         - rede-fluxo-elt
   kibana:
@@ -175,7 +175,7 @@ volumes:
   nifi_credentials:
   nifi_logs:
   erp_database:
-  elastic-data:
+  elastic_data:
 
 networks:
   rede-fluxo-elt:
