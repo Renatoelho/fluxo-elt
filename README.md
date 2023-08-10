@@ -75,10 +75,14 @@ O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicat
 
 + ![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04-E3E3E3)
 
+***Importante:*** Na implantação, todos os serviços consumiram aproximadamente 5 GB de RAM, portanto, é recomendado ter pelo menos 8 GB de memória em seu notebook/PC.
+
 
 # Apresentação em vídeo<a name="apresentacao"></a>
 
-Em desenvolvimento...
+<p align="center">
+  <a href="https://www.youtube.com/@renato-coelho" target="_blank"><img src="ELT/Docs/capa-youtube.png" alt="Vídeo de apresentação do Projeto"></a>
+</p>
 
 
 # Implantação<a name="implantacao"></a>
@@ -224,7 +228,7 @@ Em ```Bucket Name``` adicione ```bucket-flows-elt``` e clique em ```CREATE```
 
 ![Bucket Nifi Registry](ELT/Docs/bucket-nifi-registry.png)
 
-***2º Passo:*** Acesse o Apache Nifi (Usuário e senha no arquivo docker-compose.yaml) e execute em:
+***2º Passo:*** Acesse o Apache Nifi e execute em:
 
 ***Menu*** >> ***Controller Settings*** >> ***Registry Clients*** >> ***Add Registry Client***
 
