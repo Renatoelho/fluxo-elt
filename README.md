@@ -81,7 +81,7 @@ O Docker e o Docker Compose são amplamente usados no desenvolvimento de aplicat
 # Apresentação em vídeo<a name="apresentacao"></a>
 
 <p align="center">
-  <a href="https://www.youtube.com/@renato-coelho" target="_blank"><img src="ELT/Docs/capa-youtube.png" alt="Vídeo de apresentação do Projeto"></a>
+  <a href="https://youtu.be/0r4p9u6MSEY" target="_blank"><img src="ELT/Docs/capa-youtube.png" alt="Vídeo de apresentação do Projeto"></a>
 </p>
 
 
